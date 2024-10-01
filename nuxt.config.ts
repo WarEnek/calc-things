@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-   app: {
-    baseURL: '/'
+  app: {
+    baseURL: '/calc-things/',
   },
   compatibilityDate: '2024-04-03',
   devtools: {enabled: true},
