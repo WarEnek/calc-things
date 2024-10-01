@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   app: {
-    baseURL: 'https://warenek.github.io/calc-things/',
+    baseURL: '/calc-things/',
   },
   compatibilityDate: '2024-04-03',
   devtools: {enabled: true},
@@ -25,12 +25,12 @@ export default defineNuxtConfig({
       theme_color: '#ffffff',
       icons: [
         {
-          src: './icon-192x192.png',
+          src: 'icon-192x192.png',
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: './icon-512x512.png',
+          src: 'icon-512x512.png',
           sizes: '512x512',
           type: 'image/png',
         },
@@ -38,7 +38,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       // Используем navigateFallback, чтобы приложение работало оффлайн и возвращало index.html при отсутствии интернета
-      navigateFallback: './index.html',
+      navigateFallback: 'index.html',
 
       // Глобальное кэширование всех необходимых ресурсов: HTML, JS, CSS, изображения
       globPatterns: ['**/*.{js,css,html,png,svg,jpg,json}'],
