@@ -1,10 +1,10 @@
 <template>
   <div>
     <VitePwaManifest />
-    <PricePerGram />
+    <PriceComparison />
   </div>
 </template>
 
 <script setup>
-import PricePerGram from '~/components/PricePerGram.vue';
+import PriceComparison from '~/components/PriceComparison.vue';
 </script>

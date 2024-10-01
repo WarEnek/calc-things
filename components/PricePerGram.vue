@@ -1,54 +1,59 @@
 <template>
   <div class="p-6 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-    <h1 class="text-xl font-semibold text-gray-900">Стоимость 1 грамма или килограмма продукта</h1>
+    <h1 class="text-xl font-semibold text-gray-900">Стоимость продукта</h1>
 
-    <div class="space-y-2">
-      <label for="weight" class="block text-sm font-medium text-gray-700">Вес продукта:</label>
-      <input 
-        id="weight" 
-        v-model.number="weight" 
-        type="number" 
-        placeholder="Введите вес продукта" 
-        class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      />
+    <!-- Первая строка: Вес и Единица измерения -->
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="weight" class="block text-sm font-medium text-gray-700">Вес продукта:</label>
+        <input 
+          id="weight" 
+          v-model.number="weight" 
+          type="number" 
+          placeholder="Введите вес" 
+          class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+      </div>
+      <div class="w-32">
+        <label for="unit" class="block text-sm font-medium text-gray-700">Единица:</label>
+        <select 
+          id="unit" 
+          v-model="selectedUnit" 
+          class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option value="grams">Граммы</option>
+          <option value="kilograms">Килограммы</option>
+        </select>
+      </div>
     </div>
 
-    <div class="space-y-2">
-      <label for="price" class="block text-sm font-medium text-gray-700">Стоимость продукта:</label>
-      <input 
-        id="price" 
-        v-model.number="price" 
-        type="number" 
-        placeholder="Введите стоимость продукта" 
-        class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      />
+    <!-- Вторая строка: Стоимость и Валюта -->
+    <div class="flex space-x-4">
+      <div class="flex-1">
+        <label for="price" class="block text-sm font-medium text-gray-700">Стоимость:</label>
+        <input 
+          id="price" 
+          v-model.number="price" 
+          type="number" 
+          placeholder="Введите стоимость" 
+          class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        />
+      </div>
+      <div class="w-32">
+        <label for="currency" class="block text-sm font-medium text-gray-700">Валюта:</label>
+        <select 
+          id="currency" 
+          v-model="selectedCurrency" 
+          class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        >
+          <option v-for="(symbol, currency) in currencies" :key="currency" :value="currency">
+            {{ currency }}
+          </option>
+        </select>
+      </div>
     </div>
 
-    <div class="space-y-2">
-      <label for="unit" class="block text-sm font-medium text-gray-700">Выберите единицу измерения:</label>
-      <select 
-        id="unit" 
-        v-model="selectedUnit" 
-        class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      >
-        <option value="grams">Граммы</option>
-        <option value="kilograms">Килограммы</option>
-      </select>
-    </div>
-
-    <div class="space-y-2">
-      <label for="currency" class="block text-sm font-medium text-gray-700">Выберите валюту:</label>
-      <select 
-        id="currency" 
-        v-model="selectedCurrency" 
-        class="block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-      >
-        <option v-for="(symbol, currency) in currencies" :key="currency" :value="currency">
-          {{ currency }}
-        </option>
-      </select>
-    </div>
-
+    <!-- Вывод результата -->
     <div v-if="pricePerUnit >= 0" class="text-lg font-semibold text-gray-900">
       <p>Стоимость 1 {{ selectedUnitText }}: {{ pricePerUnit.toFixed(2) }} {{ selectedCurrencySymbol }}</p>
     </div>
@@ -88,12 +93,12 @@ const pricePerUnit = computed(() => {
   if (weight.value > 0) {
     if (selectedUnit.value === 'grams') {
       return price.value / weight.value;  // Цена за грамм
-    }
+    } else {
       return price.value / (weight.value / 1000);  // Цена за килограмм
+    }
   }
   return 0;
 });
-
 </script>
 
 <style scoped>
